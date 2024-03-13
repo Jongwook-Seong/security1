@@ -32,7 +32,10 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().permitAll()
         );
-        http.formLogin(form -> form.loginPage("/loginForm"));
+        http.formLogin(form -> form
+                .loginPage("/loginForm")
+                .loginProcessingUrl("/login") // /login 주소가 호출되면 시큐리티가 낚아채서 대신 로그인을 진행한다.
+                .defaultSuccessUrl("/"));
         return http.build();
     }
 }
