@@ -21,9 +21,17 @@ import java.util.Map;
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user; //컴포지션
+    private Map<String, Object> attributes;
 
+    // 일반 로그인을 할 때 사용하는 생성자
     public PrincipalDetails(User user) {
         this.user = user;
+    }
+
+    // OAuth 로그인을 할 때 사용하는 생성자
+    public PrincipalDetails(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
     }
 
     @Override
@@ -78,6 +86,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getName() {
+//        return attributes.get("sub");
+        //구글 계정 Primary Key 값인데, 중요한 정보도 아니고 사용하지도 않으므로 null 리턴
         return null;
     }
 }
